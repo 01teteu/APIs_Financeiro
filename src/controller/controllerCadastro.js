@@ -22,4 +22,3 @@ import { registerSchema } from "../schema/schemaCadastro.js";
         }
     }
  }
- 

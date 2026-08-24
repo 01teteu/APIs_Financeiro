@@ -11,8 +11,9 @@ export const login = {
                 })
             }
             const data = await serviceLogin.login(results.data)
-            return reply.status(200).code({
-                menssagem: "Usuario logado com sucesso"
+            return reply.status(200).send({
+                menssagem: "Usuario logado com sucesso",
+                token: data
             })
         }
         catch(err){
