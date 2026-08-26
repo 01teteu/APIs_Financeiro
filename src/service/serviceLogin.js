@@ -20,11 +20,7 @@ export const serviceLogin = {
                 role: user.role
             }
             const token = jwt.sign(jwtUsuario, process.env.JWT_SECRECT, {expiresIn: "1h"})
-            
-            return {
-                response: "Deu certo",
-                token: token
-            }
+            return token 
         }
         catch (err) {
             console.error(err)
