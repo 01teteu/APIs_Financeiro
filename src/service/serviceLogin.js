@@ -11,7 +11,7 @@ export const serviceLogin = {
                 throw new Error("senha ou email inválido")
             }
             const compare = await bcrypt.compare(data.password, user.senha)
-            if(!compare){
+            if (!compare) {
                 throw new Error("Senha ou email inválido")
             }
             const jwtUsuario = {
@@ -19,8 +19,8 @@ export const serviceLogin = {
                 email: user.email,
                 role: user.role
             }
-            const token = jwt.sign(jwtUsuario, process.env.JWT_SECRECT, {expiresIn: "1h"})
-            return token 
+            const token = jwt.sign(jwtUsuario, process.env.JWT_SECRECT, { expiresIn: "1h" })
+            return token
         }
         catch (err) {
             console.error(err)

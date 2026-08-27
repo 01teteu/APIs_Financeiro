@@ -2,10 +2,10 @@ import { schemaLogin } from "../schema/schemaLogin.js";
 import { serviceLogin } from "../service/serviceLogin.js";
 
 export const login = {
-    async loginUsuario(request, reply){
-        try{
+    async loginUsuario(request, reply) {
+        try {
             const results = schemaLogin.safeParse(request.body)
-            if(!results.success){
+            if (!results.success) {
                 return reply.status(400).send({
                     mensagem: results.error.flatten().fieldErrors
                 })
@@ -16,10 +16,10 @@ export const login = {
                 token: data
             })
         }
-        catch(err){
+        catch (err) {
             return reply.send({
                 mensagem: err.message
             })
         }
     }
- }
+}

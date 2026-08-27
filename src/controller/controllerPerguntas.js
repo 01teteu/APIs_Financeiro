@@ -1,13 +1,17 @@
-import { schemaPerguntas } from "../schema/schemaPergunta.js";
-
+import { schemaPerguntas } from "../schema/schemaPergunta.js"
 export const perguntasUsuario ={
     async perguntas(request, reply){
-        const results = schemaPerguntas.safeParse(request.body)
+       try {
+         const results = schemaPerguntas.safeParse(request.body)
         if(!results.success){
             return reply.status(400).send({
                 mensagem: results.error.flatten().fieldErrors
             })
-            
         }
+        // Passar os dados do zod para o servicesperguntas adicionais 
     }
+     catch(err){
+
+     }  
+}
 }
