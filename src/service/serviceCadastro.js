@@ -17,7 +17,7 @@ export const serviceCadastro = {
             );
 
             return novoUsuario;
-
+            
         } catch (err) {
             console.error(err);
             throw err;

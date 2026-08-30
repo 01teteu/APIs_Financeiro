@@ -1,4 +1,4 @@
-import { schemaLogin } from "../schema/schemaLogin.js";
+import { schemaLogin, restartSenha, validarToken } from "../schema/schemaLogin.js";
 import { serviceLogin } from "../service/serviceLogin.js";
 
 export const login = {
@@ -21,5 +21,43 @@ export const login = {
                 mensagem: err.message
             })
         }
+    },
+    async recuperarSenha(request, reply) {
+        try {
+            const results = restartSenha.safeParse(request.body)
+            if (!results.success) {
+                return reply.status(400).send({
+                    mensagem: results.error.flatten().fieldErrors
+                })
+            }
+            const data = await serviceLogin.recuperarSenhaToken(results.data)
+            return reply.status(200).send({
+                mensagem: data
+            })
+        }
+        catch (err) {
+            return reply.send({
+                mensagem: err.message
+            })
+        }
+    },
+    async validarToken(request, reply){
+        try{
+            const results = validarToken.safeParse(request.body)
+            if(!results.success){
+                return reply.status(400).send({
+                    mensagem: results.error.flatten().fieldErrors
+                })
+            }
+            const data = await serviceLogin.validarToken(results.data)
+            return reply.status(200).send({
+                mensagem: data
+            })
+        }
+        catch(err){
+            return reply.send({
+                mensagem: err.message
+            })
+        }
     }
-}
+} 

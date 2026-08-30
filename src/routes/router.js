@@ -18,5 +18,21 @@ import { login } from "../controller/controllerLogin.js";
           }
       }
     }, login.loginUsuario)
+    fastify.post("/envioemail", {
+      config: {
+        rateLimit: {
+          max: 10,
+          timeWindow: "20 minute"
+        }
+      }
+    }, login.recuperarSenha)
+    fastify.post ("/enviocodigo", {
+      config: {
+        rateLimit: {
+            max: 10,
+            timeWindow: "20 minute"
+        }
+      }
+    }, login.validarToken)
   }
  export default router
