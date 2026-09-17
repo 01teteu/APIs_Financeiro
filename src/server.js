@@ -1,6 +1,6 @@
 import fastify from "fastify";
 import dotenv from "dotenv";
-import router from "./routes/router.js";
+import registerAuthRoutes from "./routes/authRoutes.js";
 import fastifyRateLimit from "@fastify/rate-limit"
 dotenv.config();
 const server = fastify();
@@ -9,7 +9,7 @@ server.register(fastifyRateLimit, {
     timeWindow: "10 minute"
 })
 const port = process.env.PORT;
-server.register(router, {
+server.register(registerAuthRoutes, {
     prefix: "/finance"
 });
 try {

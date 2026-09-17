@@ -1,5 +1,5 @@
 import {z} from "zod"
-export const schemaPerguntas = z.object({
+export const userProfileSchema = z.object({
     nome: z.string().min(2),
     idade: z.number().int().positive(),
     renda: z.number().min(1),

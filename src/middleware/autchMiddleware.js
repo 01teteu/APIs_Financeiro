@@ -24,6 +24,5 @@ export const autch = {
                 mensagem: "Token inválido ou expirado"
             })
         }
-    },
-
+    }
 } 
