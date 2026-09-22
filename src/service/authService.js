@@ -70,7 +70,7 @@ export const authService = {
             if (passwordResetTokenPayload.validar !== "nova_senha"){
                 throw  new Error ("Token inválido")
             }
-            const passwordResetToken = jwt.sign(passwordResetTokenPayload, process.env.JWT_SECRECT, { expiresIn: "10 minute" })
+            const passwordResetToken = jwt.sign(passwordResetTokenPayload, process.env.JWT_SECRECT, { expiresIn: "10 minute" }) // JWT temporario
             await passwordResetRepository.markPasswordResetCodeAsUsed(passwordResetData.token)
             return passwordResetToken
         }
@@ -94,6 +94,28 @@ export const authService = {
         }
         catch (err) {
             console.error(err.message)
+            throw err
+        }
+    },
+    async serviceReflashToken (email){
+        try{
+         const findUserByEmail = await userRepository.findUserByEmail(email)
+         if (!findUserByEmail){
+            throw new ("Token reenviado")
+         }
+        const passwordResetCode = crypto.randomInt(100000, 1000000)// Token gerado 
+        const expiresAt = new Date()
+        expiresAt.setMinutes(expiresAt.getMinutes() + 5)
+        const salt = bcrypt.genSalt(10)
+        const tokenhahs = bcrypt.hash(passwordResetCode, salt)
+        await passwordResetRepository.updateTokenUser(tokenhahs, expiresAt)
+        return {
+            mensagem: "Token renviado", 
+            Token: passwordResetCode
+        }
+        }
+        catch(err){
+            console.log(err.message)
             throw err
         }
     }

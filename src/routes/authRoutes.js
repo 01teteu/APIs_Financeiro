@@ -42,5 +42,6 @@ import { authController } from "../controller/authController.js";
         }
       }
     }, authController.resetPassword)
+    fastify.post()
   }
  export default registerAuthRoutes

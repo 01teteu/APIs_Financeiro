@@ -111,5 +111,13 @@ export const passwordResetRepository = {
             console.error(err.message)
             throw err
         }
+    },
+    async updateTokenUser(token, timeToken){
+        const queryUpdateToken = await pool.query(
+            `UPDATE codigo, tempo_expiracao
+            SET codigo = $1,
+            SET tempo_expiracao = $2`,
+            [token, timeToken]
+        )
     }
 }

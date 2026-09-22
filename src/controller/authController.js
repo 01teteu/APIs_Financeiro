@@ -80,5 +80,25 @@ export const authController = {
                 mensagem: err.message
             })
         }
+    },
+    async refleshToken (request, reply){
+      try {
+        const dataEmail = passwordResetCodeSchema.safeParse(request.body)
+        if (!dataEmail.success){
+            return reply.status(400).send({
+                    mensagem: 1
+            })
+        }
+          const serviceToken = await authService.refleshToken(dataEmail)
+          return reply.status(200).send({
+            mensagem: serviceToken
+          })
+      }
+      catch(err){
+        return reply.send({
+            mensagem: err.mesage
+        })
+      }
+
     }
 } 
